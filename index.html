@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orbit Chat</title>
+    <meta name="description" content="Orbit Chat is a modern desktop messenger for fast, private direct messages." />
+
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="container">
+        <header class="nav">
+          <a class="brand" href="#top" aria-label="Orbit Chat">
+            <img class="logo" src="assets/logo.png" alt="Orbit Chat logo" />
+            <span class="brand-title">
+              <strong>Orbit Chat</strong>
+              <span>Desktop messaging</span>
+            </span>
+          </a>
+
+          <nav class="nav-links" aria-label="Primary">
+            <a class="pill" href="#download">Download</a>
+            <a class="pill" href="https://github.com/orbit-chat/orbit-chat" target="_blank" rel="noreferrer">GitHub</a>
+          </nav>
+        </header>
+
+        <main class="hero" id="top">
+          <div class="hero-grid">
+            <section>
+              <div class="badge">
+                <img src="assets/logo.png" alt="" aria-hidden="true" />
+                Orbit Chat
+              </div>
+
+              <h1>Private desktop messaging for teams that move fast.</h1>
+              <p class="lede">
+                A clean, realtime DM client built with Electron + React. Designed for low-friction conversation with a security-first foundation.
+              </p>
+
+              <div class="feature-grid" aria-label="Highlights">
+                <div class="feature">Realtime conversation shell</div>
+                <div class="feature">Encryption-ready message pipeline</div>
+                <div class="feature">Fast, modern UI</div>
+              </div>
+
+              <div class="footer" style="margin-top: 18px">
+                <div class="kbd" id="dl-status">v0.1.0</div>
+                <div class="small">macOS + Windows installers</div>
+              </div>
+            </section>
+
+            <aside class="card" id="download">
+              <h2>Download</h2>
+              <p>
+                Grab the latest installer for your OS. If your download is blocked by a browser warning, open the releases page directly.
+              </p>
+
+              <div class="downloads">
+                <a id="dl-macos" class="dlbtn" href="downloads/Orbit%20Chat-0.1.0-arm64.dmg">
+                  <div>
+                    <strong>macOS (DMG)</strong>
+                    <div><span>Apple Silicon build</span></div>
+                  </div>
+                  <span>→</span>
+                </a>
+
+                <a id="dl-windows" class="dlbtn" href="downloads/Orbit%20Chat%20Setup%200.1.0.exe">
+                  <div>
+                    <strong>Windows (EXE)</strong>
+                    <div><span>NSIS installer</span></div>
+                  </div>
+                  <span>→</span>
+                </a>
+              </div>
+
+              <div class="dl-meta">
+                <a id="dl-all" href="https://github.com/orbit-chat/orbit-chat" target="_blank" rel="noreferrer">View on GitHub</a>
+              </div>
+            </aside>
+          </div>
+        </main>
+
+        <footer class="footer">
+          <div>© <span id="year"></span> Orbit Chat</div>
+          <div class="small">Built for the <a href="https://github.com/orbit-chat" target="_blank" rel="noreferrer">orbit-chat</a> org</div>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
