@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Orbit Chat</title>
-    <meta name="description" content="Orbit Chat is a modern desktop messenger for fast, private direct messages." />
+    <meta
+      name="description"
+      content="Orbit Chat is a modern desktop messenger for private direct messages, built with a security-first foundation and an end-to-end encryption roadmap."
+    />
 
     <link rel="icon" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,11 +24,14 @@
             <img class="logo" src="assets/logo.png" alt="Orbit Chat logo" />
             <span class="brand-title">
               <strong>Orbit Chat</strong>
-              <span>Desktop messaging</span>
+              <span>Private desktop messaging</span>
             </span>
           </a>
 
           <nav class="nav-links" aria-label="Primary">
+            <a class="pill" href="#product">Product</a>
+            <a class="pill" href="#security">Security</a>
+            <a class="pill" href="#download">Download</a>
             <a class="pill" href="https://github.com/orbit-chat/orbit-chat" target="_blank" rel="noreferrer">GitHub</a>
           </nav>
         </header>
@@ -38,20 +44,27 @@
                 Orbit Chat
               </div>
 
-              <h1>Private desktop messaging for teams that move fast.</h1>
+              <h1>A modern desktop messenger for private social DMs.</h1>
               <p class="lede">
-                A clean, realtime DM client built with Electron + React. Designed for low-friction conversation with a security-first foundation.
+                Orbit Chat is built for low-friction conversation with a security-first foundation. It’s a focused desktop client for friends and
+                communities, with an architecture designed to keep message contents opaque to the server.
               </p>
 
+              <div class="cta-row" aria-label="Primary actions">
+                <a class="cta primary" href="#download">Download</a>
+                <a class="cta" href="#security">How encryption works</a>
+                <a class="cta" href="https://github.com/orbit-chat/orbit-chat" target="_blank" rel="noreferrer">View on GitHub</a>
+              </div>
+
               <div class="feature-grid" aria-label="Highlights">
-                <div class="feature">Realtime conversation shell</div>
-                <div class="feature">Encryption-ready message pipeline</div>
-                <div class="feature">Fast, modern UI</div>
+                <div class="feature">Realtime DM experience</div>
+                <div class="feature">Client-side crypto primitives (libsodium)</div>
+                <div class="feature">Server stores opaque payloads</div>
               </div>
 
               <div class="footer" style="margin-top: 18px">
-                <div class="kbd" id="dl-status">Latest release</div>
-                <div class="small">macOS + Windows installers</div>
+                <div class="kbd" id="dl-status">Latest downloads</div>
+                <div class="small">macOS + Windows installers (v0.2.0)</div>
               </div>
             </section>
 
@@ -62,7 +75,13 @@
               </p>
 
               <div class="downloads">
-                <a id="dl-macos" class="dlbtn" href="downloads/Orbit.Chat-0.1.0-arm64-mac.zip">
+                <a
+                  id="dl-macos"
+                  class="dlbtn"
+                  href="downloads/Orbit%20Chat-0.2.0-arm64-mac.zip"
+                  download
+                  aria-label="Download Orbit Chat for macOS"
+                >
                   <div>
                     <strong>macOS (ZIP)</strong>
                     <div><span>Apple Silicon build</span></div>
@@ -70,7 +89,13 @@
                   <span>→</span>
                 </a>
 
-                <a id="dl-windows" class="dlbtn" href="downloads/Orbit.Chat.Setup.0.1.0.exe">
+                <a
+                  id="dl-windows"
+                  class="dlbtn"
+                  href="downloads/Orbit%20Chat%20Setup%200.2.0.exe"
+                  download
+                  aria-label="Download Orbit Chat for Windows"
+                >
                   <div>
                     <strong>Windows (EXE)</strong>
                     <div><span>NSIS installer</span></div>
@@ -84,6 +109,91 @@
               </div>
             </aside>
           </div>
+
+          <section class="section" id="product" aria-label="Product overview">
+            <div class="section-head">
+              <h2>What Orbit Chat is</h2>
+              <p class="sublede">
+                A focused desktop client for direct messages. Built with Electron + React for fast iteration, and designed around privacy and secure
+                message handling.
+              </p>
+            </div>
+
+            <div class="section-grid">
+              <div class="panel">
+                <h3>Built for social chat</h3>
+                <p>
+                  Orbit Chat keeps the experience simple: find a friend, start a DM, and talk. The UI is optimized for clarity, speed, and low cognitive
+                  load.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Security-first defaults</h3>
+                <p>
+                  Messages are represented as ciphertext + nonce in the API. The server is designed to store opaque payloads, so crypto can live in the
+                  client.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Open development</h3>
+                <p>
+                  The code is available on GitHub so you can review the approach, follow the roadmap, and contribute improvements.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="security" aria-label="Security and encryption">
+            <div class="section-head">
+              <h2>How encryption works</h2>
+              <p class="sublede">
+                Orbit Chat uses libsodium to encrypt direct messages end-to-end. Conversation keys are created on the client and encrypted to each
+                participant’s public key, so the server stores opaque payloads.
+              </p>
+            </div>
+
+            <div class="callout" role="note" aria-label="Encryption note">
+              <div class="callout-title">End-to-end encrypted DMs</div>
+              <div class="callout-body">
+                Direct messages are encrypted on your device before sending. The server receives and stores
+                <span class="mono">ciphertext</span> + <span class="mono">nonce</span> plus an encrypted conversation key per user.
+                Only participants with the matching private keys can decrypt.
+              </div>
+            </div>
+
+            <div class="steps" aria-label="Encryption steps">
+              <div class="step">
+                <div class="step-top">
+                  <span class="step-num">1</span>
+                  <h3>Generate device keys</h3>
+                </div>
+                <p>
+                  Each device generates a public/private keypair locally. The public key is registered with your account.
+                </p>
+              </div>
+
+              <div class="step">
+                <div class="step-top">
+                  <span class="step-num">2</span>
+                  <h3>Seal a conversation key</h3>
+                </div>
+                <p>
+                  For each DM, the client creates a symmetric conversation key and encrypts it to each participant’s public key (sealed box).
+                </p>
+              </div>
+
+              <div class="step">
+                <div class="step-top">
+                  <span class="step-num">3</span>
+                  <h3>Encrypt messages, decrypt locally</h3>
+                </div>
+                <p>
+                  Messages are encrypted client-side using the conversation key (libsodium secretbox). Recipients decrypt locally; the server can’t read message
+                  contents.
+                </p>
+              </div>
+            </div>
+          </section>
         </main>
 
         <footer class="footer">
