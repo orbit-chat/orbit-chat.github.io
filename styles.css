@@ -21,6 +21,10 @@ body {
   height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -131,13 +135,18 @@ button:focus-visible {
   text-decoration: none;
   font-size: 12px;
   color: rgba(229, 231, 235, 0.95);
-  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 260ms ease, background 260ms ease, box-shadow 260ms ease;
 }
 
 .pill:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.pill:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 .hero {
@@ -224,13 +233,18 @@ h1 {
   font-size: 12px;
   font-weight: 600;
   color: rgba(229, 231, 235, 0.95);
-  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 260ms ease, background 260ms ease, box-shadow 260ms ease;
 }
 
 .cta:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.cta:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 .cta.primary {
@@ -317,13 +331,18 @@ h1 {
   border-radius: 16px;
   padding: 14px 14px;
   text-decoration: none;
-  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms ease, background 280ms ease, box-shadow 280ms ease;
 }
 
 .dlbtn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   border-color: rgba(45, 212, 191, 0.35);
   background: rgba(45, 212, 191, 0.07);
+  box-shadow: 0 12px 28px rgba(10, 20, 30, 0.35);
+}
+
+.dlbtn:active {
+  transform: translateY(-1px) scale(0.995);
 }
 
 .dlbtn strong {
@@ -603,6 +622,11 @@ h1 {
 
 .dl-meta a {
   color: rgba(226, 232, 240, 0.9);
+  transition: color 220ms ease;
+}
+
+.dl-meta a:hover {
+  color: #ffffff;
 }
 
 .footer {
@@ -627,4 +651,27 @@ h1 {
   background: rgba(0, 0, 0, 0.2);
   padding: 6px 10px;
   font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .pill,
+  .cta,
+  .dlbtn,
+  .dl-meta a {
+    transition: none;
+  }
+
+  .pill:hover,
+  .cta:hover,
+  .dlbtn:hover,
+  .pill:active,
+  .cta:active,
+  .dlbtn:active {
+    transform: none;
+    box-shadow: none;
+  }
 }
