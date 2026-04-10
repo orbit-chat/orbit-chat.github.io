@@ -51,7 +51,7 @@
                 Orbit Chat is built for low-friction conversation with a security-first foundation. It is a focused desktop client for direct
                 messages, where DM text and attachment envelopes are encrypted on-device and decrypted on-device.
               </p>
-              <p class="small">Current desktop package version: <span class="mono-inline">0.6.0</span></p>
+              <p class="small">Current desktop package version: <span class="mono-inline">0.7.4</span></p>
 
               <div class="cta-row" aria-label="Primary actions">
                 <a class="cta primary" href="#download">Download</a>
@@ -69,11 +69,14 @@
                 <div class="feature">GIF search + attach flow via Giphy API</div>
                 <div class="feature">Searchable emoji picker with recents + keyboard navigation</div>
                 <div class="feature">Friend requests, friend list workflows, and avatar fallback rendering</div>
+                <div class="feature">Frameless desktop shell with custom title bar window controls</div>
+                <div class="feature">Archive/unarchive chats plus context-menu relock/delete or leave actions</div>
+                <div class="feature">Recovery code management: status, refresh, and permanent disable confirmation</div>
               </div>
 
               <div class="footer" style="margin-top: 18px">
                 <div class="kbd" id="dl-status">Latest downloads</div>
-                <div class="small">macOS + Windows installers (v0.6.0)</div>
+                <div class="small">macOS + Windows installers (v0.7.4)</div>
               </div>
             </section>
 
@@ -87,13 +90,12 @@
                 <a
                   id="dl-macos"
                   class="dlbtn"
-                  href="downloads/Orbit%20Chat-0.6.0-arm64-mac.zip"
-                  download
+                  href="https://github.com/orbit-chat/orbit-chat/releases/latest"
                   aria-label="Download Orbit Chat for macOS"
                 >
                   <div>
-                    <strong>macOS (ZIP)</strong>
-                    <div><span>Apple Silicon build</span></div>
+                    <strong>macOS (Latest)</strong>
+                    <div><span>Download from GitHub Releases</span></div>
                   </div>
                   <span>→</span>
                 </a>
@@ -101,13 +103,12 @@
                 <a
                   id="dl-windows"
                   class="dlbtn"
-                  href="downloads/Orbit%20Chat%20Setup%200.6.0.exe"
-                  download
+                  href="https://github.com/orbit-chat/orbit-chat/releases/latest"
                   aria-label="Download Orbit Chat for Windows"
                 >
                   <div>
-                    <strong>Windows (EXE)</strong>
-                    <div><span>NSIS installer</span></div>
+                    <strong>Windows (Latest)</strong>
+                    <div><span>Download from GitHub Releases</span></div>
                   </div>
                   <span>→</span>
                 </a>
@@ -289,6 +290,10 @@
                 <h3>Endpoint normalization</h3>
                 <p>Client URL normalization hardens malformed API/socket configuration values to reduce local setup and desktop deployment mistakes.</p>
               </div>
+              <div class="runtime-card">
+                <h3>Realtime resilience</h3>
+                <p>Socket transport starts with polling and upgrades to websocket, with silent token refresh support during auth-related reconnect failures.</p>
+              </div>
             </div>
 
             <div class="arch-flow" aria-label="System flow overview">
@@ -342,6 +347,7 @@
               <div class="limit">Forward secrecy / ratcheting is not implemented yet.</div>
               <div class="limit">Video uploads are disabled; links only.</div>
               <div class="limit">Large installer artifacts may require LFS/CDN strategy as release size grows.</div>
+              <div class="limit">In-app desktop auto-update is not enabled yet; installs still come from release artifacts.</div>
             </div>
           </section>
         </main>
