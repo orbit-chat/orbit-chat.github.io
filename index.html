@@ -6,7 +6,7 @@
     <title>Orbit Chat | Private Desktop Messaging</title>
     <meta
       name="description"
-      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted DMs, encrypted attachments, GIF and emoji workflows, realtime delivery, and passcode-locked chat controls."
+      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted direct and group chats, membership-change key rotation, encrypted attachments, realtime delivery, and passcode-locked chat controls."
     />
 
     <link rel="icon" href="assets/logo.png" />
@@ -46,12 +46,12 @@
                 Orbit Chat
               </div>
 
-              <h1>A modern desktop messenger for private social DMs.</h1>
+              <h1>A modern desktop messenger for private direct and group chat.</h1>
               <p class="lede">
                 Orbit Chat is built for low-friction conversation with a security-first foundation. It is a focused desktop client for direct
-                messages, where DM text and attachment envelopes are encrypted on-device and decrypted on-device.
+                messages and group chats, where message content and attachment envelopes are encrypted on-device and decrypted on-device.
               </p>
-              <p class="small">Current desktop package version: <span class="mono-inline">0.7.4</span></p>
+              <p class="small">Current desktop package version: <span class="mono-inline">0.8.0</span></p>
 
               <div class="cta-row" aria-label="Primary actions">
                 <a class="cta primary" href="#download">Download</a>
@@ -60,12 +60,14 @@
               </div>
 
               <div class="feature-grid" aria-label="Highlights">
-                <div class="feature">Realtime DM experience with safety-net fanout</div>
+                <div class="feature">Realtime direct + group chat delivery with safety-net fanout</div>
                 <div class="feature">Client-side crypto primitives (libsodium)</div>
-                <div class="feature">Server stores opaque payloads, not plaintext DM text</div>
+                <div class="feature">Server stores opaque payloads, not plaintext message text</div>
                 <div class="feature">Per-chat passcode locks + recovery-code bypass</div>
                 <div class="feature">Encrypted attachment pipeline (chunked bytes)</div>
                 <div class="feature">Chat labels: custom name or <span class="mono-inline">@username#chatId</span></div>
+                <div class="feature">Home (recent chats), DM, Group Chats, Friends, and Archive navigation tabs</div>
+                <div class="feature">Membership-change rekeying and history key-version access control</div>
                 <div class="feature">GIF search + attach flow via Giphy API</div>
                 <div class="feature">Searchable emoji picker with recents + keyboard navigation</div>
                 <div class="feature">Friend requests, friend list workflows, and avatar fallback rendering</div>
@@ -76,7 +78,7 @@
 
               <div class="footer" style="margin-top: 18px">
                 <div class="kbd" id="dl-status">Latest downloads</div>
-                <div class="small">macOS + Windows installers (v0.7.4)</div>
+                <div class="small">macOS + Windows installers (v0.8.0)</div>
               </div>
             </section>
 
@@ -124,8 +126,8 @@
             <div class="section-head">
               <h2>What Orbit Chat is</h2>
               <p class="sublede">
-                A focused desktop client for direct messages. Built with Electron + React for fast iteration, with encrypted messaging, encrypted
-                media, chat passcode controls, and friend workflows.
+                A focused desktop client for direct and group messaging. Built with Electron + React for fast iteration, with encrypted messaging,
+                encrypted media, chat passcode controls, and social workflows.
               </p>
             </div>
 
@@ -133,15 +135,15 @@
               <div class="panel">
                 <h3>Built for social chat</h3>
                 <p>
-                  Orbit Chat keeps the experience direct: find a friend, start a DM, and talk. Multiple DMs with one person are supported and
-                  distinguished by display naming and chat labels.
+                  Orbit Chat keeps the experience direct: jump from home recent chats into DMs or groups, use dedicated tabs for each surface,
+                  and move older threads into archive.
                 </p>
               </div>
               <div class="panel">
                 <h3>Security-first defaults</h3>
                 <p>
-                  Message APIs use ciphertext + nonce payloads. Conversation keys are sealed per participant, and DM payload decryption remains
-                  client-side.
+                  Message APIs use ciphertext + nonce payloads. Conversation keys are sealed per participant, membership changes rotate key
+                  versions, and payload decryption remains client-side.
                 </p>
               </div>
               <div class="panel">
@@ -157,7 +159,7 @@
               <div class="panel">
                 <h3>Media and link support</h3>
                 <p>
-                  File and image attachments are encrypted client-side before upload. Video support is intentionally link-only, and GIF sharing is
+                  Image attachments are encrypted client-side before upload. Pasted links stay inside the encrypted message body, and GIF sharing is
                   available from search.
                 </p>
               </div>
@@ -181,17 +183,17 @@
             <div class="section-head">
               <h2>How encryption works</h2>
               <p class="sublede">
-                Orbit Chat uses libsodium to encrypt direct messages end-to-end. Conversation keys are created on the client and encrypted to each
-                participant’s public key, so the server stores opaque payloads.
+                Orbit Chat uses libsodium to encrypt direct and group messages end-to-end. Conversation keys are created on the client and encrypted
+                to each participant’s public key, so the server stores opaque payloads.
               </p>
             </div>
 
             <div class="callout" role="note" aria-label="Encryption note">
-              <div class="callout-title">End-to-end encrypted DMs</div>
+              <div class="callout-title">End-to-end encrypted chat content</div>
               <div class="callout-body">
-                Direct messages are encrypted on your device before sending. The server receives and stores
+                Direct and group messages are encrypted on your device before sending. The server receives and stores
                 <span class="mono">ciphertext</span> + <span class="mono">nonce</span> plus an encrypted conversation key per user.
-                Only participants with the matching private keys can decrypt.
+                Membership changes rotate group key versions, and history is constrained by each member’s readable key-version boundary.
               </div>
             </div>
 
@@ -212,7 +214,7 @@
                   <h3>Seal a conversation key</h3>
                 </div>
                 <p>
-                  For each DM, the client creates a symmetric conversation key and encrypts it to each participant’s public key (sealed box).
+                  For each conversation, the client creates a symmetric key and encrypts it to each participant’s public key (sealed box).
                 </p>
               </div>
 
@@ -222,8 +224,8 @@
                   <h3>Encrypt messages, decrypt locally</h3>
                 </div>
                 <p>
-                  Messages are encrypted client-side using the conversation key (libsodium secretbox). Recipients decrypt locally; the server can’t read message
-                  contents.
+                  Messages are encrypted client-side using the conversation key (libsodium secretbox). Group membership changes trigger key-version
+                  rotation, and recipients decrypt locally.
                 </p>
               </div>
             </div>
@@ -232,9 +234,9 @@
               <div class="list-card">
                 <h3>Encrypted End-to-End</h3>
                 <ul>
-                  <li>DM text payloads</li>
+                  <li>Direct message text payloads</li>
+                  <li>Group message text payloads</li>
                   <li>Attachment metadata in encrypted envelopes</li>
-                  <li>Video links embedded in encrypted envelopes</li>
                   <li>GIF links embedded in encrypted envelopes</li>
                   <li>Wrapped file keys per attachment</li>
                   <li>Attachment blob bytes uploaded as encrypted chunks</li>
@@ -257,8 +259,8 @@
             <div class="section-head">
               <h2>Architecture and Runtime</h2>
               <p class="sublede">
-                Orbit Chat uses realtime room fanout, encrypted message envelopes, and deterministic local state updates so first-message delivery and
-                unread behavior remain consistent.
+                Orbit Chat uses realtime room fanout, encrypted message envelopes, membership-change rekeying, and deterministic local state updates
+                so delivery and unread behavior remain consistent.
               </p>
             </div>
 
@@ -269,7 +271,7 @@
               </div>
               <div class="runtime-card">
                 <h3>Chat identity model</h3>
-                <p>Each DM instance is unique. If no custom chat name exists, the client resolves a fallback label format: <span class="mono-inline">@username#chatId</span>.</p>
+                <p>Chats use custom display names when set, with fallback labels such as <span class="mono-inline">@username#chatId</span>. Home view surfaces recent activity first.</p>
               </div>
               <div class="runtime-card">
                 <h3>Passcode and lock context</h3>
@@ -284,7 +286,7 @@
               </div>
               <div class="runtime-card">
                 <h3>Key-prep fallback behavior</h3>
-                <p>If key material is still preparing on receive, UI may briefly show encrypted fallback text and then resolve to plaintext once unsealed.</p>
+                <p>If key material is still preparing on receive, UI may briefly show encrypted fallback text and then resolve to plaintext once unsealed; older-than-boundary versions stay hidden.</p>
               </div>
               <div class="runtime-card">
                 <h3>Endpoint normalization</h3>
@@ -324,7 +326,7 @@
               <div class="trust-card">
                 <h3>Server Not Trusted For</h3>
                 <ul>
-                  <li>Reading plaintext DM content</li>
+                  <li>Reading plaintext message content</li>
                   <li>Decrypting participant message envelopes</li>
                 </ul>
               </div>
@@ -340,12 +342,11 @@
             </div>
 
             <div class="limits-grid">
-              <div class="limit">Group chats are not fully E2EE in the same way as DMs.</div>
+              <div class="limit">Group E2EE currently depends on centralized membership enforcement and server-coordinated key distribution metadata.</div>
               <div class="limit">Metadata remains visible to backend services.</div>
               <div class="limit">Private keys are in local app storage, not OS keychain.</div>
               <div class="limit">User fingerprint verification is not implemented yet.</div>
               <div class="limit">Forward secrecy / ratcheting is not implemented yet.</div>
-              <div class="limit">Video uploads are disabled; links only.</div>
               <div class="limit">Large installer artifacts may require LFS/CDN strategy as release size grows.</div>
               <div class="limit">In-app desktop auto-update is not enabled yet; installs still come from release artifacts.</div>
             </div>
