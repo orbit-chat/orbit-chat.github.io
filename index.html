@@ -6,7 +6,7 @@
     <title>Orbit Chat | Private Desktop Messaging</title>
     <meta
       name="description"
-      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted DMs, encrypted attachments, realtime delivery, and passcode-locked chat controls."
+      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted DMs, encrypted attachments, GIF and emoji workflows, realtime delivery, and passcode-locked chat controls."
     />
 
     <link rel="icon" href="assets/logo.png" />
@@ -51,6 +51,7 @@
                 Orbit Chat is built for low-friction conversation with a security-first foundation. It is a focused desktop client for direct
                 messages, where DM text and attachment envelopes are encrypted on-device and decrypted on-device.
               </p>
+              <p class="small">Current desktop package version: <span class="mono-inline">0.6.0</span></p>
 
               <div class="cta-row" aria-label="Primary actions">
                 <a class="cta primary" href="#download">Download</a>
@@ -65,6 +66,9 @@
                 <div class="feature">Per-chat passcode locks + recovery-code bypass</div>
                 <div class="feature">Encrypted attachment pipeline (chunked bytes)</div>
                 <div class="feature">Chat labels: custom name or <span class="mono-inline">@username#chatId</span></div>
+                <div class="feature">GIF search + attach flow via Giphy API</div>
+                <div class="feature">Searchable emoji picker with recents + keyboard navigation</div>
+                <div class="feature">Friend requests, friend list workflows, and avatar fallback rendering</div>
               </div>
 
               <div class="footer" style="margin-top: 18px">
@@ -147,6 +151,29 @@
                 </p>
               </div>
             </div>
+
+            <div class="section-grid" style="margin-top: 12px">
+              <div class="panel">
+                <h3>Media and link support</h3>
+                <p>
+                  File and image attachments are encrypted client-side before upload. Video support is intentionally link-only, and GIF sharing is
+                  available from search.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Conversation quality-of-life</h3>
+                <p>
+                  Unread counters clear when a chat becomes active, while per-chat settings let users update display names and lock/passcode behavior
+                  in one place.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Profile and social flow</h3>
+                <p>
+                  Orbit includes profile popovers/settings, friend list refresh events, and account recovery code paths for login and passcode bypass.
+                </p>
+              </div>
+            </div>
           </section>
 
           <section class="section" id="security" aria-label="Security and encryption">
@@ -207,6 +234,7 @@
                   <li>DM text payloads</li>
                   <li>Attachment metadata in encrypted envelopes</li>
                   <li>Video links embedded in encrypted envelopes</li>
+                  <li>GIF links embedded in encrypted envelopes</li>
                   <li>Wrapped file keys per attachment</li>
                   <li>Attachment blob bytes uploaded as encrypted chunks</li>
                 </ul>
@@ -245,6 +273,21 @@
               <div class="runtime-card">
                 <h3>Passcode and lock context</h3>
                 <p>Passcode prompts include chat labels to reduce unlock mistakes across multiple DMs with the same person.</p>
+              </div>
+            </div>
+
+            <div class="runtime-grid" style="margin-top: 12px">
+              <div class="runtime-card">
+                <h3>First-message reliability</h3>
+                <p>New inbound DM traffic appears in realtime without requiring a re-login refresh, including first-time recipient delivery paths.</p>
+              </div>
+              <div class="runtime-card">
+                <h3>Key-prep fallback behavior</h3>
+                <p>If key material is still preparing on receive, UI may briefly show encrypted fallback text and then resolve to plaintext once unsealed.</p>
+              </div>
+              <div class="runtime-card">
+                <h3>Endpoint normalization</h3>
+                <p>Client URL normalization hardens malformed API/socket configuration values to reduce local setup and desktop deployment mistakes.</p>
               </div>
             </div>
 
@@ -298,6 +341,7 @@
               <div class="limit">User fingerprint verification is not implemented yet.</div>
               <div class="limit">Forward secrecy / ratcheting is not implemented yet.</div>
               <div class="limit">Video uploads are disabled; links only.</div>
+              <div class="limit">Large installer artifacts may require LFS/CDN strategy as release size grows.</div>
             </div>
           </section>
         </main>
