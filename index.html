@@ -122,6 +122,49 @@
             </aside>
           </div>
 
+          <section class="section encryption-demo" id="encryption-demo" aria-label="Encryption flow visualization">
+            <div class="section-head">
+              <h2>Watch the encryption path</h2>
+              <p class="sublede">
+                Type a message once, encrypt it on the client, relay opaque bytes through the server, then decrypt it again on the receiving client.
+              </p>
+            </div>
+
+            <div class="encryption-card card" data-phase="0">
+              <div class="encryption-card-top">
+                <div>
+                  <div class="encryption-kicker">Animated client → server → client flow</div>
+                  <h3 id="encryption-title">Client types plaintext</h3>
+                </div>
+                <div class="encryption-badge" id="encryption-badge">Plaintext stays local</div>
+              </div>
+
+              <div class="encryption-track" id="encryption-track" aria-hidden="true">
+                <div class="encryption-line"></div>
+                <div class="encryption-node encryption-node-left">Client A</div>
+                <div class="encryption-node encryption-node-center">Server</div>
+                <div class="encryption-node encryption-node-right">Client B</div>
+                <div class="encryption-packet" id="encryption-packet">Meet at 3?</div>
+                <div class="encryption-glow"></div>
+              </div>
+
+              <div class="encryption-status-grid">
+                <div class="encryption-status" id="encryption-left-status">
+                  <span>Client A</span>
+                  <strong>Typing plaintext</strong>
+                </div>
+                <div class="encryption-status" id="encryption-server-status">
+                  <span>Server</span>
+                  <strong>Cannot read message</strong>
+                </div>
+                <div class="encryption-status" id="encryption-right-status">
+                  <span>Client B</span>
+                  <strong>Waiting to decrypt</strong>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section class="section" id="product" aria-label="Product overview">
             <div class="section-head">
               <h2>What Orbit Chat is</h2>
@@ -362,6 +405,84 @@
 
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      (() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const track = document.getElementById("encryption-track");
+        const title = document.getElementById("encryption-title");
+        const badge = document.getElementById("encryption-badge");
+        const packet = document.getElementById("encryption-packet");
+        const leftStatus = document.getElementById("encryption-left-status");
+        const serverStatus = document.getElementById("encryption-server-status");
+        const rightStatus = document.getElementById("encryption-right-status");
+
+        if (!track || !title || !badge || !packet || !leftStatus || !serverStatus || !rightStatus) return;
+
+        const phases = [
+          {
+            title: "Client types plaintext",
+            badge: "Plaintext stays local",
+            packet: "Meet at 3?",
+            phase: 0,
+            left: "Typing plaintext",
+            server: "Cannot read message",
+            right: "Waiting to decrypt",
+            packetLeft: "10%",
+          },
+          {
+            title: "Client encrypts the message",
+            badge: "Ciphertext leaves the device",
+            packet: "8f4c…c12a",
+            phase: 1,
+            left: "Encrypting on-device",
+            server: "Relaying opaque bytes",
+            right: "Ciphertext in transit",
+            packetLeft: "49%",
+          },
+          {
+            title: "Server relays opaque payloads",
+            badge: "Server cannot decrypt",
+            packet: "opaque payload",
+            phase: 2,
+            left: "Sent securely",
+            server: "Forwarding ciphertext only",
+            right: "Still encrypted",
+            packetLeft: "50%",
+          },
+          {
+            title: "Client B decrypts locally",
+            badge: "Plaintext restored on receive",
+            packet: "Meet at 3?",
+            phase: 3,
+            left: "Done sending",
+            server: "Never saw plaintext",
+            right: "Plaintext restored",
+            packetLeft: "88%",
+          },
+        ];
+
+        let index = 0;
+
+        const applyPhase = (phase) => {
+          track.dataset.phase = String(phase.phase);
+          title.textContent = phase.title;
+          badge.textContent = phase.badge;
+          packet.textContent = phase.packet;
+          packet.style.left = phase.packetLeft;
+          leftStatus.querySelector("strong").textContent = phase.left;
+          serverStatus.querySelector("strong").textContent = phase.server;
+          rightStatus.querySelector("strong").textContent = phase.right;
+        };
+
+        applyPhase(phases[index]);
+
+        if (prefersReducedMotion) return;
+
+        window.setInterval(() => {
+          index = (index + 1) % phases.length;
+          applyPhase(phases[index]);
+        }, 2600);
+      })();
     </script>
   </body>
 </html>

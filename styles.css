@@ -609,6 +609,263 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+.encryption-demo {
+  position: relative;
+}
+
+.encryption-card {
+  margin-top: 14px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(71, 223, 198, 0.2);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(71, 223, 198, 0.16), transparent 28%),
+    radial-gradient(circle at 90% 85%, rgba(255, 138, 91, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(8, 17, 29, 0.94), rgba(10, 22, 36, 0.9));
+}
+
+.encryption-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(circle at center, black 34%, transparent 100%);
+  opacity: 0.5;
+}
+
+.encryption-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.encryption-kicker {
+  color: rgba(159, 180, 204, 0.98);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.encryption-card h3 {
+  margin: 8px 0 0;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.encryption-badge {
+  flex: none;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 223, 198, 0.28);
+  background: rgba(71, 223, 198, 0.08);
+  color: #9af4e4;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+}
+
+.encryption-track {
+  position: relative;
+  height: 170px;
+  margin-top: 18px;
+  z-index: 1;
+}
+
+.encryption-line {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, rgba(71, 223, 198, 0.65), rgba(255, 138, 91, 0.65), transparent);
+  box-shadow: 0 0 24px rgba(71, 223, 198, 0.18);
+}
+
+.encryption-line::before,
+.encryption-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(71, 223, 198, 0.34);
+  background: rgba(71, 223, 198, 0.08);
+  box-shadow: 0 0 18px rgba(71, 223, 198, 0.2);
+}
+
+.encryption-line::before {
+  left: -6px;
+}
+
+.encryption-line::after {
+  right: -6px;
+}
+
+.encryption-node {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(4, 12, 21, 0.78);
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  min-width: 124px;
+  text-align: center;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+}
+
+.encryption-node::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(71, 223, 198, 0.12), transparent 40%, rgba(255, 255, 255, 0.02));
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.encryption-node-left {
+  left: 4%;
+}
+
+.encryption-node-center {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.encryption-node-right {
+  right: 4%;
+}
+
+.encryption-card[data-phase="0"] .encryption-node-left,
+.encryption-card[data-phase="1"] .encryption-node-left,
+.encryption-card[data-phase="1"] .encryption-node-center,
+.encryption-card[data-phase="2"] .encryption-node-center,
+.encryption-card[data-phase="2"] .encryption-node-right,
+.encryption-card[data-phase="3"] .encryption-node-right {
+  border-color: rgba(71, 223, 198, 0.32);
+  background: rgba(7, 20, 33, 0.92);
+}
+
+.encryption-card[data-phase="0"] .encryption-node-left::before,
+.encryption-card[data-phase="1"] .encryption-node-left::before,
+.encryption-card[data-phase="1"] .encryption-node-center::before,
+.encryption-card[data-phase="2"] .encryption-node-center::before,
+.encryption-card[data-phase="2"] .encryption-node-right::before,
+.encryption-card[data-phase="3"] .encryption-node-right::before {
+  opacity: 1;
+}
+
+.encryption-packet {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 223, 198, 0.4);
+  background: rgba(10, 24, 38, 0.95);
+  color: #9af4e4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 0 0 1px rgba(71, 223, 198, 0.12), 0 18px 36px rgba(0, 0, 0, 0.28);
+  transition: left 800ms cubic-bezier(0.22, 1, 0.36, 1), border-color 400ms ease, background 400ms ease, color 400ms ease, box-shadow 400ms ease;
+}
+
+.encryption-packet::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(71, 223, 198, 0.18), transparent 68%);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+.encryption-card[data-phase="1"] .encryption-packet {
+  background: rgba(8, 20, 34, 0.96);
+  color: #d7fbf5;
+  border-color: rgba(71, 223, 198, 0.58);
+}
+
+.encryption-card[data-phase="2"] .encryption-packet {
+  background: rgba(7, 16, 27, 0.98);
+  color: rgba(203, 213, 225, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.encryption-card[data-phase="3"] .encryption-packet {
+  background: rgba(7, 27, 23, 0.96);
+  color: #9af4e4;
+  border-color: rgba(71, 223, 198, 0.55);
+}
+
+.encryption-glow {
+  position: absolute;
+  inset: auto 18% 24px auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(71, 223, 198, 0.16), transparent 68%);
+  filter: blur(18px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.encryption-status-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+@media (min-width: 760px) {
+  .encryption-status-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.encryption-status {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 14px;
+}
+
+.encryption-status span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(159, 180, 204, 0.98);
+}
+
+.encryption-status strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(241, 245, 249, 0.95);
+}
+
 .dlbtn span {
   font-size: 12px;
   color: rgba(148, 163, 184, 0.95);
@@ -673,5 +930,65 @@ h1 {
   .dlbtn:active {
     transform: none;
     box-shadow: none;
+  }
+
+  .encryption-packet {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .encryption-card-top {
+    flex-direction: column;
+  }
+
+  .encryption-track {
+    height: 220px;
+  }
+
+  .encryption-node-left {
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .encryption-node-center {
+    top: 50%;
+  }
+
+  .encryption-node-right {
+    top: 80%;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .encryption-line {
+    left: 50%;
+    right: auto;
+    width: 2px;
+    height: 76%;
+    top: 12%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, rgba(71, 223, 198, 0.65), rgba(255, 138, 91, 0.65), transparent);
+  }
+
+  .encryption-line::before,
+  .encryption-line::after {
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+  }
+
+  .encryption-line::before {
+    top: -6px;
+  }
+
+  .encryption-line::after {
+    bottom: -6px;
+  }
+
+  .encryption-packet {
+    left: 50% !important;
   }
 }
