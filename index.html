@@ -6,7 +6,7 @@
     <title>Orbit Chat | Private Desktop Messaging</title>
     <meta
       name="description"
-      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted direct and group chats, membership-change key rotation, encrypted attachments, realtime delivery, and passcode-locked chat controls."
+      content="Orbit Chat is a desktop-first private messenger with end-to-end encrypted direct and group chats, reactions, mentions, in-chat search, pinned messages, encrypted attachments, realtime delivery, and passcode-locked chat controls."
     />
 
     <link rel="icon" href="assets/logo.png" />
@@ -51,7 +51,7 @@
                 Orbit Chat is built for low-friction conversation with a security-first foundation. It is a focused desktop client for direct
                 messages and group chats, where message content and attachment envelopes are encrypted on-device and decrypted on-device.
               </p>
-              <p class="small">Current desktop package version: <span class="mono-inline">0.8.0</span></p>
+              <p class="small">Current desktop package version: <span class="mono-inline">0.9.0</span></p>
 
               <div class="cta-row" aria-label="Primary actions">
                 <a class="cta primary" href="#download">Download</a>
@@ -70,10 +70,10 @@
                 <div class="feature">Membership-change rekeying and history key-version access control</div>
                 <div class="feature">GIF search + attach flow via Giphy API</div>
                 <div class="feature">Searchable emoji picker with recents + keyboard navigation</div>
-                <div class="feature">Friend requests, friend list workflows, and avatar fallback rendering</div>
-                <div class="feature">Frameless desktop shell with custom title bar window controls</div>
-                <div class="feature">Archive/unarchive chats plus context-menu relock/delete or leave actions</div>
-                <div class="feature">Recovery code management: status, refresh, and permanent disable confirmation</div>
+                <div class="feature">Reactions with emoji + <span class="mono-inline">:name:</span> shortcode support</div>
+                <div class="feature">Reaction details modal (who reacted to what)</div>
+                <div class="feature">Mention autocomplete + ping highlighting in message text</div>
+                <div class="feature">Message-level pinning and active-chat search jump results</div>
               </div>
 
               <div class="footer" style="margin-top: 18px">
@@ -170,7 +170,7 @@
               <h2>What Orbit Chat is</h2>
               <p class="sublede">
                 A focused desktop client for direct and group messaging. Built with Electron + React for fast iteration, with encrypted messaging,
-                encrypted media, chat passcode controls, and social workflows.
+                encrypted media, mention/reaction UX, passcode controls, and social workflows.
               </p>
             </div>
 
@@ -179,7 +179,7 @@
                 <h3>Built for social chat</h3>
                 <p>
                   Orbit Chat keeps the experience direct: jump from home recent chats into DMs or groups, use dedicated tabs for each surface,
-                  and move older threads into archive.
+                  react quickly, mention with autocomplete, and move older threads into archive.
                 </p>
               </div>
               <div class="panel">
@@ -210,7 +210,7 @@
                 <h3>Conversation quality-of-life</h3>
                 <p>
                   Unread counters clear when a chat becomes active, while per-chat settings let users update display names and lock/passcode behavior
-                  in one place.
+                  in one place. Message pinning and in-chat search support quick context jumps.
                 </p>
               </div>
               <div class="panel">
@@ -281,6 +281,7 @@
                   <li>Group message text payloads</li>
                   <li>Attachment metadata in encrypted envelopes</li>
                   <li>GIF links embedded in encrypted envelopes</li>
+                  <li>@mention text embedded in encrypted payloads</li>
                   <li>Wrapped file keys per attachment</li>
                   <li>Attachment blob bytes uploaded as encrypted chunks</li>
                 </ul>
@@ -323,6 +324,10 @@
             </div>
 
             <div class="runtime-grid" style="margin-top: 12px">
+              <div class="runtime-card">
+                <h3>Conversation interaction layer</h3>
+                <p>Message context actions support reply, ping, thread, react, and pin flows, with reaction updates fanned out in realtime.</p>
+              </div>
               <div class="runtime-card">
                 <h3>First-message reliability</h3>
                 <p>New inbound DM traffic appears in realtime without requiring a re-login refresh, including first-time recipient delivery paths.</p>
@@ -390,6 +395,7 @@
               <div class="limit">Private keys are in local app storage, not OS keychain.</div>
               <div class="limit">User fingerprint verification is not implemented yet.</div>
               <div class="limit">Forward secrecy / ratcheting is not implemented yet.</div>
+              <div class="limit">Pinned chats and pinned messages are local-only and currently not synced across devices.</div>
               <div class="limit">Large installer artifacts may require LFS/CDN strategy as release size grows.</div>
               <div class="limit">In-app desktop auto-update is not enabled yet; installs still come from release artifacts.</div>
             </div>

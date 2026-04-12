@@ -124,6 +124,20 @@ button:focus-visible {
   gap: 10px;
 }
 
+@media (max-width: 900px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-links {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
