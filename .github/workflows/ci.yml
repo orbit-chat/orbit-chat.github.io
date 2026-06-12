@@ -1,0 +1,35 @@
+name: Site CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate static site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check required pages and downloads
+        run: |
+          test -f index.html
+          test -f security.html
+          test -f styles.css
+          ls downloads/Orbit-Chat-Setup-*.exe
+          ls downloads/Orbit-Chat-*-mac.zip
+          grep -q "Security Disclosure" security.html
+          grep -q "security.html" index.html

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Disclosure | Orbit Chat</title>
+    <meta
+      name="description"
+      content="Security disclosure policy for Orbit Chat, including private vulnerability reporting guidance and the current production trust status."
+    />
+
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="container">
+        <header class="nav">
+          <a class="brand" href="index.html" aria-label="Orbit Chat">
+            <img class="logo" src="assets/logo.png" alt="Orbit Chat logo" />
+            <span class="brand-title">
+              <strong>Orbit Chat</strong>
+              <span>Private desktop messaging</span>
+            </span>
+          </a>
+
+          <nav class="nav-links" aria-label="Primary">
+            <a class="pill" href="index.html#product">Product</a>
+            <a class="pill" href="index.html#security">Encryption</a>
+            <a class="pill" href="index.html#download">Download</a>
+            <a class="pill" href="https://github.com/orbit-chat/orbit-chat/security/advisories/new" target="_blank" rel="noreferrer">Report privately</a>
+          </nav>
+        </header>
+
+        <main class="hero" id="top">
+          <div class="badge">
+            <img src="assets/logo.png" alt="" aria-hidden="true" />
+            Security Disclosure
+          </div>
+
+          <h1>Report security issues privately.</h1>
+          <p class="lede">
+            Orbit Chat handles private messaging data. Please do not open public issues for suspected vulnerabilities involving authentication,
+            encryption, private keys, update signing, media access, or backend authorization.
+          </p>
+
+          <div class="cta-row" aria-label="Security actions">
+            <a class="cta primary" href="https://github.com/orbit-chat/orbit-chat/security/advisories/new" target="_blank" rel="noreferrer">Report desktop issue</a>
+            <a class="cta" href="https://github.com/orbit-chat/orbit-server/security/advisories/new" target="_blank" rel="noreferrer">Report server issue</a>
+            <a class="cta" href="index.html">Back to Orbit Chat</a>
+          </div>
+
+          <section class="section" aria-label="Disclosure policy">
+            <div class="section-head">
+              <h2>What to include</h2>
+              <p class="sublede">
+                Send enough detail for maintainers to reproduce and assess impact without exposing real private data.
+              </p>
+            </div>
+
+            <div class="section-grid">
+              <div class="panel">
+                <h3>Useful details</h3>
+                <p>
+                  Include the affected app or server version, operating system, endpoint or workflow, reproduction steps, expected behavior, actual
+                  behavior, and whether plaintext, private keys, tokens, recovery codes, or update signing could be affected.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Do not send secrets</h3>
+                <p>
+                  Do not include real private keys, conversation keys, recovery codes, access tokens, refresh tokens, signing certificates, or private
+                  message content in a report.
+                </p>
+              </div>
+              <div class="panel">
+                <h3>Response target</h3>
+                <p>
+                  The project aims to acknowledge credible reports within 7 days, confirm impact when reproducible, and publish a security note after
+                  users have had a reasonable update window.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" aria-label="Production trust status">
+            <div class="section-head">
+              <h2>Production trust status</h2>
+              <p class="sublede">
+                Orbit Chat is preparing for signed releases, reliable updater metadata, CI checks, backup recovery procedures, and third-party review.
+              </p>
+            </div>
+
+            <div class="callout" role="note">
+              <div class="callout-title">Audit status</div>
+              <div class="callout-body">
+                Orbit Chat should not be described as externally audited until a third-party security review has been completed and published.
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
