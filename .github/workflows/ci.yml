@@ -24,12 +24,5 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Check required pages and downloads
-        run: |
-          test -f index.html
-          test -f security.html
-          test -f styles.css
-          ls downloads/Orbit-Chat-Setup-*.exe
-          ls downloads/Orbit-Chat-*-mac.zip
-          grep -q "Security Disclosure" security.html
-          grep -q "security.html" index.html
+      - name: Validate static site
+        run: ./scripts/validate-site.sh
